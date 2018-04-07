@@ -1,4 +1,5 @@
 """Cacophony plugin for chattymarkov: generate random sentences."""
+from collections import defaultdict
 import logging
 
 from cacophony.base import Plugin
@@ -29,11 +30,16 @@ hooks = {
 
 class ChattymarkovPlugin(Plugin):
     """Chattymarkov plugin for cacophony."""
+    def __init__(self, *args, **kwargs):
+        """Instantiate chattymarkov plugin."""
+        super().__init__(*args, **kwargs)
+        self.chattybots = {}
 
     async def on_ready(self):
         """Instantiate "brains" per server once the bot is ready."""
         for server in self.bot.servers:
             logger.info("Instanciate brain for server %s", server)
+            self.chattybots[server.id] = {}
 
 
 plugin_class = ChattymarkovPlugin

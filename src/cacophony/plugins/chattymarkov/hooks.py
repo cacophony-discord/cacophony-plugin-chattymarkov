@@ -5,6 +5,11 @@ import chattymarkov
 
 logger = logging.getLogger(__name__)
 
+
+async def _chattybot_learn(app, chattybot, message):
+    """Private. Let `chattybot` learn `message` and answer through `app.`."""
+
+
 async def learn(app, message):
     """Learn from the content of `message` and generate an answer eventually.
 
@@ -19,9 +24,17 @@ async def learn(app, message):
 
     """
     # Get the server id or skip everything.
+    logger.warning("Todo: learn from '%s'", message.content)
     try:
         server_id = message.server.id
     except AttributeError:
         logger.warning("Could not get the server id from the message.")
     else:
-        pass        
+        # XXX: Isn't it an ugly way to get the right chattybot?
+        try:
+            chattybot = app.plugins['chattymarkov'].chattybots[server_id]
+        except KeyError:
+            logger.warning("No chattybot found for server %s. Skipping...",
+                           server_id)
+        else:
+            await _chattybot_learn(app, chattybot, message)
