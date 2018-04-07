@@ -1,0 +1,14 @@
+[run]
+branch = True
+source = chattymarkov
+
+[paths]
+source =
+    src/chattymarkov
+    .tox/*/lib/python*/site-packages/chattymarkov
+
+[report]
+;fail_under = 100
+show_missing = True
+exclude_lines =
+    if __name__ == .__main__.:
