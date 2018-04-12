@@ -17,6 +17,7 @@ async def _chattybot_learn(app, chattybot, message):
     
     """
     answer = chattybot.answer(message)
+    logger.info("Chattymarkov will answer '%s'", answer)
     if answer:
         await app.send_message(message.channel, answer)
 
@@ -35,7 +36,6 @@ async def learn(app, message):
 
     """
     # Get the server id or skip everything.
-    logger.warning("Todo: learn from '%s'", message.content)
     try:
         server_id = message.server.id
     except AttributeError:

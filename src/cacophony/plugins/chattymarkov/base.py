@@ -1,4 +1,6 @@
 """Chattymarkov plugin base classes."""
+import random
+
 import chattymarkov
 
 class ChattyBot:
@@ -26,12 +28,12 @@ class ChattyBot:
             The message to answer, empty string otherwise.
 
         """
-        if mute:
+        if self._mute:
             return ''  # Bot is mute, nothing to answer
 
-        self._brain.learn(message)
+        self._brain.learn(message.content)
 
-        is_mentioned = self.discord_user in message.mentions
+        is_mentioned = self._discord_user in message.mentions
         will_answer = is_mentioned or random.random() < self._chattyness
         
         if will_answer:
