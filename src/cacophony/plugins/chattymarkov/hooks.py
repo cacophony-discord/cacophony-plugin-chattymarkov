@@ -44,7 +44,7 @@ async def learn(app, message):
         # XXX: Isn't it an ugly way to get the right chattybot?
         try:
             chattybot = app.plugins['chattymarkov'].chattybots[server_id]
-        except KeyError:
+        except (KeyError, TypeError):
             logger.warning("No chattybot found for server %s. Skipping...",
                            server_id)
         else:
