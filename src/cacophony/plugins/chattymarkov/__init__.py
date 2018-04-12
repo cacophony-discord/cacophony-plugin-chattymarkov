@@ -52,6 +52,7 @@ class ChattymarkovPlugin(Plugin):
                 brain=chattymarkov.ChattyMarkov(
                     connect_string=self._brain_string,
                     prefix=server.id),
+                discord_user=self.bot.discord_client.user,
                 chattyness=chattyness)
 
 

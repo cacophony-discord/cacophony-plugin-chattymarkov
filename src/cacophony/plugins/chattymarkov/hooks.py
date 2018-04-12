@@ -7,7 +7,18 @@ logger = logging.getLogger(__name__)
 
 
 async def _chattybot_learn(app, chattybot, message):
-    """Private. Let `chattybot` learn `message` and answer through `app.`."""
+    """Private. Let `chattybot` learn `message` and answer through `app`.
+    
+    Args:
+        app: The application instance.
+        chattybot: The chattybot instance responsible for generating the
+            answer.
+        message: The discord message that has been received.
+    
+    """
+    answer = chattybot.answer(message)
+    if answer:
+        await app.send_message(message.channel, answer)
 
 
 async def learn(app, message):
