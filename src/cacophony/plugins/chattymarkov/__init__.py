@@ -54,7 +54,7 @@ class ChattymarkovPlugin(Plugin):
                     prefix=server.id),
                 discord_user=self.bot.discord_client.user,
                 chattyness=chattyness)
-        self.info("Servers are: %s", self.chattybots.keys())
+        logger.info("Servers are: %s", self.chattybots.keys())
 
 
 plugin_class = ChattymarkovPlugin
