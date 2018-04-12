@@ -17,7 +17,7 @@ CLASSIFIERS = [
     'Programming Language :: Python',
     'Topic :: Software Development',
 ]
-INSTALL_REQUIRES = []
+INSTALL_REQUIRES = ['chattymarkov']
 
 
 PROJECT_DIR = dirname(__file__)
