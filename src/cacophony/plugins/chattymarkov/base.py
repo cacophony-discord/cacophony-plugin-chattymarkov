@@ -1,7 +1,6 @@
 """Chattymarkov plugin base classes."""
 import random
 
-import chattymarkov
 
 class ChattyBot:
     """Describe a chattybot bound to some specific discord server."""
@@ -35,7 +34,7 @@ class ChattyBot:
 
         is_mentioned = self._discord_user in message.mentions
         will_answer = is_mentioned or random.random() < self._chattyness
-        
+
         if will_answer:
             answer = self._brain.generate()  # Pick-up a random sentence.
             if is_mentioned:

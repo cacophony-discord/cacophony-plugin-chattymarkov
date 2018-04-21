@@ -1,20 +1,18 @@
 """Chattymarkov hooks."""
 import logging
 
-import chattymarkov
-
 logger = logging.getLogger(__name__)
 
 
 async def _chattybot_learn(app, chattybot, message):
     """Private. Let `chattybot` learn `message` and answer through `app`.
-    
+
     Args:
         app: The application instance.
         chattybot: The chattybot instance responsible for generating the
             answer.
         message: The discord message that has been received.
-    
+
     """
     answer = chattybot.answer(message)
     logger.info("Chattymarkov will answer '%s'", answer)
@@ -32,6 +30,7 @@ async def learn(app, message):
         - A random number between 0 and 1 falls below the chattyness rate.
 
     Args:
+        app: The cacophony application.
         message: The discord message to learn from.
 
     """
@@ -49,3 +48,20 @@ async def learn(app, message):
                            server_id)
         else:
             await _chattybot_learn(app, chattybot, message)
+
+
+async def create_new_brain(app, server):
+    """Create a new brain for `server`, through `app`.
+
+    Basically, this coroutine will instantiate a new chattybot for `server`
+    without the need to reboot the bot.
+
+    Args:
+        app: The cacophony application.
+        server: The server being joined.
+
+    """
+    logger.info("Create new brain for server id '%s'.", server.id)
+    plugin = app.plugins['chattymarkov']
+    chattybot = plugin.build_chattybot(server.id)
+    app.plugins['chattymarkov'].chattybots[server.id] = chattybot

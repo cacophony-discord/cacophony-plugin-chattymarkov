@@ -3,7 +3,8 @@
 __version__ = '0.1.0'
 
 __title__ = 'cacophony-plugin-chattymarkov'
-__summary__ = "Cacophony plugin for chattymarkov: generate random sentences into the chat."
+__summary__ = ("Cacophony plugin for chattymarkov: generate random sentences "
+               "into the chat.")
 __uri__ = 'https://github.com/cacophony-discord/cacophony-plugin-chattymarkov'
 
 __author__ = "Geoffrey ROYER"
