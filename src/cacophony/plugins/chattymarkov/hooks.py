@@ -14,7 +14,7 @@ async def _chattybot_learn(app, chattybot, message):
         message: The discord message that has been received.
 
     """
-    answer = chattybot.answer(message)
+    answer = await chattybot.answer(message)
     logger.info("Chattymarkov will answer '%s'", answer)
     if answer:
         await app.send_message(message.channel, answer)

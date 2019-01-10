@@ -11,7 +11,7 @@ class ChattyBot:
         self._mute = mute
         self._discord_user = discord_user
 
-    def answer(self, message) -> str:
+    async def answer(self, message) -> str:
         """Return an answer after having received `message`.
 
         If the bot won't answer, then an empty string will be returned. The bot
@@ -36,7 +36,7 @@ class ChattyBot:
         will_answer = is_mentioned or random.random() < self._chattyness
 
         if will_answer:
-            answer = self._brain.generate()  # Pick-up a random sentence.
+            answer = await self._brain.generate()  # Pick-up a random sentence.
             if is_mentioned:
                 answer = f'<@{message.author.id}> {answer}'
             return answer
