@@ -64,4 +64,5 @@ async def create_new_brain(app, server):
     logger.info("Create new brain for server id '%s'.", server.id)
     plugin = app.plugins['chattymarkov']
     chattybot = plugin.build_chattybot(server.id)
+    await chattybot.connect()
     app.plugins['chattymarkov'].chattybots[server.id] = chattybot
