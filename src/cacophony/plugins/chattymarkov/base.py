@@ -11,6 +11,10 @@ class ChattyBot:
         self._mute = mute
         self._discord_user = discord_user
 
+    async def connect(self) -> None:
+        """Wrap call around the `self._brain_connect` coroutine."""
+        await self._brain.connect()
+
     async def answer(self, message) -> str:
         """Return an answer after having received `message`.
 
@@ -30,7 +34,7 @@ class ChattyBot:
         if self._mute:
             return ''  # Bot is mute, nothing to answer
 
-        self._brain.learn(message.content)
+        await self._brain.learn(message.content)
 
         is_mentioned = self._discord_user in message.mentions
         will_answer = is_mentioned or random.random() < self._chattyness

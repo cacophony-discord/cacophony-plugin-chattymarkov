@@ -54,7 +54,7 @@ class ChattymarkovPlugin(Plugin):
             An instance of `ChattyBot`.
 
         """
-        return ChattyBot(brain=chattymarkov.ChattyMarkov(
+        return ChattyBot(brain=chattymarkov.ChattyMarkovAsync(
             connect_string=self._brain_string, prefix=server_id),
             discord_user=self.bot.discord_client.user,
             chattyness=chattyness)
@@ -68,7 +68,18 @@ class ChattymarkovPlugin(Plugin):
                                                    0.1))
             self.chattybots[server.id] = self.build_chattybot(server.id,
                                                               chattyness)
+            await self.chattybots[server.id].connect()
             logger.info("Servers are: %s", self.chattybots.keys())
+
+    async def on_server_join(self, server):
+        """Instantiate a brain for the newly server joined."""
+        chattyness = float(self.bot.get_config(server.id,
+                                               "chattymarkov.chattyness",
+                                               0.1))
+        self.chattybots[server.id] = self.build_chattybot(server.id,
+                                                          chattyness)
+        await self.chattybots[server.id].connect()
+        logger.info("Instantiated brain for server %s", server.id)
 
 
 plugin_class = ChattymarkovPlugin
