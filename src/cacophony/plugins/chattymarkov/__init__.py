@@ -40,7 +40,7 @@ class ChattymarkovPlugin(Plugin):
         """Instantiate chattymarkov plugin."""
         super().__init__(*args, **kwargs)
         self._brain_string = os.environ.get("CHATTYMARKOV_BRAIN_STRING",
-                                            "memory://")
+                                            "memory_async://")
         self.chattybots = defaultdict(ChattyBot)
 
     def build_chattybot(self, server_id, chattyness=0.1):
