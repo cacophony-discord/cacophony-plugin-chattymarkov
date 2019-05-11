@@ -67,9 +67,9 @@ class ChattymarkovPlugin(Plugin):
             chattyness = float(self.bot.get_config(guild.id,
                                                    "chattymarkov.chattyness",
                                                    0.1))
-            self.chattybots[guild.id] = self.build_chattybot(guild.id,
-                                                              chattyness)
-            await self.chattybots[guild.id].connect()
+            self.chattybots[str(guild.id)] = self.build_chattybot(guild.id,
+                                                                  chattyness)
+            await self.chattybots[str(guild.id)].connect()
             self._bot.info("Servers are: %s", self.chattybots.keys())
 
 

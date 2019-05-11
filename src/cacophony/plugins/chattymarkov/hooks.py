@@ -36,7 +36,7 @@ async def learn(app, message):
     """
     # Get the server id or skip everything.
     try:
-        guild_id = message.guild.id
+        guild_id = str(message.guild.id)
     except AttributeError:
         logger.warning("Could not get the guild id from the message.")
     else:
