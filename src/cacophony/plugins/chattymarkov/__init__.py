@@ -62,14 +62,14 @@ class ChattymarkovPlugin(Plugin):
     async def on_ready(self):
         """Instantiate "brains" per server once the bot is ready."""
         for server in self.bot.guilds:
-            logger.info("Instanciate brain for server %s", server)
+            self._bot..info("Instanciate brain for server %s", server)
             chattyness = float(self.bot.get_config(server.id,
                                                    "chattymarkov.chattyness",
                                                    0.1))
             self.chattybots[server.id] = self.build_chattybot(server.id,
                                                               chattyness)
             await self.chattybots[server.id].connect()
-            logger.info("Servers are: %s", self.chattybots.keys())
+            self._bots.info("Servers are: %s", self.chattybots.keys())
 
 
 plugin_class = ChattymarkovPlugin
