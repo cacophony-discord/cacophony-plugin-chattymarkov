@@ -55,7 +55,7 @@ class ChattymarkovPlugin(Plugin):
 
         """
         return ChattyBot(brain=chattymarkov.ChattyMarkovAsync(
-            connect_string=self._brain_string, prefix=server_id),
+            connect_string=self._brain_string, prefix=server_id,
             discord_user=self.bot.discord_client.user,
             chattyness=chattyness)
 
