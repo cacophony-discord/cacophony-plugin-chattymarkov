@@ -48,6 +48,7 @@ async def learn(app, message):
                            server_id)
         else:
             await _chattybot_learn(app, chattybot, message)
+    return message
 
 
 async def create_new_brain(app, server):
