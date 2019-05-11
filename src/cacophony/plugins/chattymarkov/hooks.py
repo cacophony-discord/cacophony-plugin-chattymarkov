@@ -36,23 +36,23 @@ async def learn(app, message):
     """
     # Get the server id or skip everything.
     try:
-        server_id = message.server.id
+        guild_id = message.guild.id
     except AttributeError:
-        logger.warning("Could not get the server id from the message.")
+        logger.warning("Could not get the guild id from the message.")
     else:
         # XXX: Isn't it an ugly way to get the right chattybot?
         try:
-            chattybot = app.plugins['chattymarkov'].chattybots[server_id]
+            chattybot = app.plugins['chattymarkov'].chattybots[guild_id]
         except (KeyError, TypeError):
-            logger.warning("No chattybot found for server %s. Skipping...",
-                           server_id)
+            logger.warning("No chattybot found for guild %s. Skipping...",
+                           guild_id)
         else:
             await _chattybot_learn(app, chattybot, message)
     return message
 
 
-async def create_new_brain(app, server):
-    """Create a new brain for `server`, through `app`.
+async def create_new_brain(app, guild):
+    """Create a new brain for `guild`, through `app`.
 
     Basically, this coroutine will instantiate a new chattybot for `server`
     without the need to reboot the bot.
@@ -62,8 +62,8 @@ async def create_new_brain(app, server):
         server: The server being joined.
 
     """
-    logger.info("Create new brain for server id '%s'.", server.id)
+    logger.info("Create new brain for guild id '%s'.", guild.id)
     plugin = app.plugins['chattymarkov']
-    chattybot = plugin.build_chattybot(server.id)
+    chattybot = plugin.build_chattybot(guild.id)
     await chattybot.connect()
-    app.plugins['chattymarkov'].chattybots[server.id] = chattybot
+    app.plugins['chattymarkov'].chattybots[guild.id] = chattybot
