@@ -61,7 +61,7 @@ class ChattymarkovPlugin(Plugin):
 
     async def on_ready(self):
         """Instantiate "brains" per server once the bot is ready."""
-        for server in self.bot.servers:
+        for server in self.bot.guilds:
             logger.info("Instanciate brain for server %s", server)
             chattyness = float(self.bot.get_config(server.id,
                                                    "chattymarkov.chattyness",
