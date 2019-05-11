@@ -43,19 +43,22 @@ class ChattymarkovPlugin(Plugin):
                                             "memory_async://")
         self.chattybots = defaultdict(ChattyBot)
 
-    def build_chattybot(self, server_id, chattyness=0.1):
+    def build_chattybot(self, guild_id, chattyness=0.1):
         """Build a chattybot for server identified by `server_id`.
 
         Args:
-            server_id: The server id to assign the new chattybot to.
+            guild_id: The guild id to assign the new chattybot to.
             chattyness: The chattyness rate for the newly created bot.
 
         Returns:
             An instance of `ChattyBot`.
 
         """
-        return ChattyBot(brain=chattymarkov.ChattyMarkovAsync(
-            connect_string=self._brain_string, prefix=server_id,
+        brain = chattymarkov.ChattyMarkovAsync(
+            connect_string=self._brain_string,
+            prefix=guild_id
+        )
+        return ChattyBot(brain=brain,
             discord_user=self.bot.discord_client.user,
             chattyness=chattyness)
 
