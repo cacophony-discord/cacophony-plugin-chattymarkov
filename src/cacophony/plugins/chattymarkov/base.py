@@ -5,7 +5,7 @@ import random
 class ChattyBot:
     """Describe a chattybot bound to some specific discord server."""
 
-    def __init__(self, brain, discord_user, chattyness=0.1, mute=False):
+    def __init__(self, brain, discord_user, chattyness=0, mute=False):
         self._brain = brain
         self._chattyness = chattyness
         self._mute = mute
@@ -31,18 +31,18 @@ class ChattyBot:
             The message to answer, empty string otherwise.
 
         """
-        if self._mute:
-            return ''  # Bot is mute, nothing to answer
-
         await self._brain.learn(message.content)
+
+        if self._mute:
+            return ""  # Bot is mute, nothing to answer
 
         is_mentioned = self._discord_user in message.mentions
         will_answer = is_mentioned or random.random() < self._chattyness
 
-        if will_answer:
+        if False:
             answer = await self._brain.generate()  # Pick-up a random sentence.
             if is_mentioned:
-                answer = f'<@{message.author.id}> {answer}'
+                answer = f"<@{message.author.id}> {answer}"
             return answer
         else:
-            return ''
+            return ""
